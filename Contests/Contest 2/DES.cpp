@@ -1,0 +1,223 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <sstream>
+using namespace std;
+
+long long int permutation(int out_size, int table[], int in_size, long long int input) {
+	string value;
+	string output1 = "";
+	for (int i = 0; i < out_size; i++) {
+		value = to_string(1 & (input >> (in_size - table[i])));
+		output1 += value;
+	}
+
+	long long int print = stoull(output1, 0, 2);
+	return print;
+}
+
+void inv_permutation(int out_size, int table[], int output[]) {
+	int counter = 1;
+	for (int i = 0; i < out_size; i++) {
+		output[table[i] - 1] = counter;
+		counter++;
+	}
+	return;
+}
+
+string sbox(int s1[4][16], int s2[4][16], int s3[4][16], int s4[4][16], int s5[4][16], int s6[4][16], int s7[4][16], int s8[4][16], long long keyword) {
+	string output = "";
+	int row;
+	stringstream ss;
+	
+	//S1
+	int now = (keyword >> 48 - 6) & (63);
+	int middle = (now >> 1) & 15;
+	string temp = "";
+	temp += to_string((now & (1 << 5)) >> 5);
+	temp += to_string(now & 1);
+	row = stoi(temp, 0, 2);
+	int hh = (s1[row][middle]);
+	ss << hex <<uppercase<< hh; 
+	string res(ss.str());
+
+	
+
+	//S2
+	now = (keyword >> (48 - (6*2)))& (63);
+	middle = (now >> 1) & 15;
+	string temp2 = "";
+	temp2 += to_string((now & (1 << 5))>>5);
+	temp2 += to_string(now & 1);
+	row = stoi(temp2, 0, 2);
+	hh = (s2[row][middle]);
+	ss << hex << uppercase << hh;
+	string res2(ss.str());
+	
+	
+	//S3
+	
+	now = (keyword >> 48 - 6 * 3)& (63);
+	middle = (now >> 1) & 15;
+	string temp3 = "";
+	temp3 += to_string((now & (1 << 5)) >> 5);
+	temp3 += to_string(now & 1);
+	row = stoi(temp3, 0, 2);
+	hh = (s3[row][middle]);
+	ss << hex << uppercase << hh;
+	string res3(ss.str());
+
+	
+	//S4
+	now = (keyword >> 48 - 6 * 4)& (63);
+	middle = (now >> 1) & 15;
+	string temp4 = "";
+	temp4 += to_string((now & (1 << 5)) >> 5);
+	temp4 += to_string(now & 1);
+	row = stoi(temp4, 0, 2);
+	hh = (s4[row][middle]);
+	ss << hex << uppercase << hh;
+	string res4(ss.str());
+	
+	
+	//S5
+	now = (keyword >> 48 - 6 * 5)& (63);
+	middle = (now >> 1) & 15;
+	string temp5 = "";
+	temp5 += to_string((now & (1 << 5)) >> 5);
+	temp5 += to_string(now & 1);
+	row = stoi(temp5, 0, 2);
+	hh = (s5[row][middle]);
+	ss << hex << uppercase << hh;
+	string res5(ss.str());
+	
+	
+	//S6
+	now = (keyword >> 48 - 6 * 6)& (63);
+	middle = (now >> 1) & 15;
+	string temp6 = "";
+	temp6 += to_string((now & (1 << 5)) >> 5);
+	temp6 += to_string(now & 1);
+	row = stoi(temp6, 0, 2);
+	hh = (s6[row][middle]);
+	ss << hex << uppercase << hh;
+	string res6(ss.str());
+
+	
+	//S7
+	now = (keyword >> 48 - 6 * 7)& (63);
+	middle = (now >> 1) & 15;
+	string temp7 = "";
+	temp7 += to_string((now & (1 << 5)) >> 5);
+	temp7 += to_string(now & 1);
+	row = stoi(temp7, 0, 2);
+	hh = (s7[row][middle]);
+	ss << hex << uppercase << hh;
+	string res7(ss.str());
+	
+	
+	//S8
+	now = (keyword >> 48 - 6 * 8)& (63);
+	middle = (now >> 1) & 15;
+	string temp8 = "";
+	temp8 += to_string((now & (1 << 5)) >> 5);
+	temp8 += to_string(now & 1);
+	row = stoi(temp8, 0, 2);
+	hh = (s8[row][middle]);
+	ss << hex << uppercase << hh;
+	string res8(ss.str());
+	output = res8;
+	
+	return output;
+}
+
+int main() {
+
+	int s1[4][16] = { {14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7},
+
+				{0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8},
+
+				{4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0},
+
+				{15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13} };
+	int s2[4][16] = { {15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10 },
+
+				{3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5},
+
+				{0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15},
+
+				{13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9} };
+	int s3[4][16] = { {10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8} ,
+
+				{13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1},
+
+				{13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7},
+
+				{1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12} };
+	int s4[4][16] = { {7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15 },
+
+				{13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9 },
+
+				{10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4 },
+
+				{3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14 }};
+	int s5[4][16] = { {2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9 },
+
+				{14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6 },
+
+				{4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14 },
+
+				{11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3 }};
+	int s6[4][16] = { {12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11} ,
+
+				{10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8},
+
+				{9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6},
+
+				{4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13} };
+	int s7[4][16] = { {4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1} ,
+
+				{13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6},
+													 
+				{1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2},
+													 
+				{6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12} };
+	int s8[4][16] = { {13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7} ,
+
+{1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2},
+
+{7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8},
+
+{2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11} };
+
+	int eptable[] = { 32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,12,13,14,15,16,17,16,17,18,19,20,21,20,21,22,23,24,25,24,25,26,27,28,29,28,29,30,31,32,1};
+	int sptable[] = { 16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25};
+
+	string in;
+	cin >> in;
+	istringstream converter{ in }; 
+	long long int input = 0;
+	converter >> hex >> input;
+
+	string key48;
+	cin >> key48;
+	istringstream converter2{ key48 };
+	long long int key = 0;
+	converter2 >> hex >> key;
+
+
+	long long int out1 = permutation(48, eptable, 32, input);
+
+	long long int out2 = out1 ^ key;
+
+	string out3 = sbox(s1, s2, s3, s4, s5, s6, s7, s8, out2);
+
+	istringstream converter3{ out3 };
+	long long int out3i = 0;
+	converter3 >> hex >> out3i;
+
+	long long int last = permutation(32, sptable, 32, out3i);
+	cout << hex << uppercase << last;
+	
+	return 0;
+}
